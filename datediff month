@@ -11,3 +11,16 @@ order by Длительность desc, city desc;
 
 select name, city,date_first, date_last from trip
 where datediff(date_last, date_first) in (select min(datediff(date_last, date_first)) from trip);
+
+Задание
+Вывести информацию о командировках, начало и конец которых относятся к одному месяцу (год может быть любой). В результат включить столбцы name, city, date_first, date_last. Строки отсортировать сначала  в алфавитном порядке по названию города, а затем по фамилии сотрудника .
+
+Немного теории
+Для того, чтобы выделить номер месяца из даты используется функция MONTH(дата).
+Например, MONTH('2020-04-12') = 4.
+Если определяется месяц для  значений столбца date_first, то используется запись MONTH(date_first)
+
+order by city asc, name asc;
+select name, city, date_first, date_last from trip
+where month(date_first)-month(date_last) = 0
+order by city asc, name asc;
