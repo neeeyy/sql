@@ -25,3 +25,13 @@ FROM book
 WHERE amount < 4;
 
 SELECT * FROM ordering;
+
+Задание
+Создать таблицу заказ (ordering), куда включить авторов и названия тех книг, количество экземпляров которых в таблице book меньше среднего количества экземпляров книг в таблице book. В таблицу включить столбец   amount, в котором для всех книг указать одинаковое значение - среднее количество экземпляров книг в таблице book.
+Create table ordering as 
+select author, title, 
+(SELECT ROUND(AVG(amount)) FROM book) as amount
+from book
+WHERE amount<(SELECT ROUND(AVG(amount)) FROM book);
+
+select * from ordering;
