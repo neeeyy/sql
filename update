@@ -32,3 +32,20 @@ where book.title = supply.title and book.author = supply.author;
 select * from book;
 
 
+Задание
+В таблице fine увеличить в два раза сумму неоплаченных штрафов для отобранных на предыдущем шаге записей. 
+
+Пояснение !!! если не получается запрос или валидатор выдает ошибки, раскройте это пояснение!!!
+Важно! Если в запросе используется несколько таблиц или запросов, включающих одинаковые поля, то применяется полное имя столбца, включающего название таблицы через символ «.». Например,  fine.name  и  query_in.name.
+
+update fine f,
+        (select name, number_plate, violation from fine
+         group by name, number_plate, violation 
+         having count(number_plate) >=2
+         ) query_in 
+set f.sum_fine = f.sum_fine*2 
+where f.name = query_in.name and f.number_plate = query_in.number_plate and f.violation = query_in.violation and f.date_payment is null  ;
+select * from fine;
+
+
+​
